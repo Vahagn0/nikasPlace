@@ -1,0 +1,98 @@
+.createUserMain{
+    height: 100vh;
+    width: 100vw;
+    background-color: #EF892E;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.createUserModel{
+    height: 90vh;
+    width: 90vw;
+    background-color: white;
+    box-shadow: 0px 0px 10px 0px #d3d3d3;
+}
+
+.createLogoDiv{
+    height: 20%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center5;
+}
+
+.createLogo{
+    height: 75%;
+}
+
+.info{
+    height: 80%;
+    width: 100%;
+    display: flex;
+}
+
+.left{
+    height: 80%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+}
+
+.input{
+    height: 8%;
+    width: 40%;
+    padding-left: 20px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: solid #EF892E;
+    margin-left: 150px;
+    margin-top: 30px;
+}
+
+.date{
+    height: 8%;
+    width: 40%;
+    padding-left: 20px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: solid #EF892E;
+    margin-left: 150px;
+    margin-top: 30px;
+}
+
+.date:focus{
+    border-color:  #EF892E;
+    outline: none;
+}
+
+.input:focus{
+    border-color:  #EF892E;
+    outline: none;
+}
+
+
+.right{
+    height: 80%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 100px;
+}
+
+.visits{
+    margin-top: 30px;
+    font-size: 50px;
+}
+
+.addvisit{
+    height: 8%;
+    width: 40%;
+    padding-left: 20px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: solid #EF892E;
+    margin-left: 150px;
+    margin-top: 30px;
+}
