@@ -49,3 +49,8 @@
     color: white;
     font-size: 20px;
 }
+
+.incorrect{
+    font-size: 20px;
+    margin-top: 15px;
+}
