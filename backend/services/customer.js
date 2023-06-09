@@ -53,7 +53,16 @@ const createCustomer = async (req, res, next) => {
     try {
         const 
         {
-            name
+            name,
+            surname,
+            phoneNumber,
+            mail,
+            birthDate,
+            personalCode,
+            currentAboniment,
+            aboniments,
+            visitsLeft,
+            visits,
         } = req.body;
 
         if (name === undefined || name === '') {
@@ -64,8 +73,89 @@ const createCustomer = async (req, res, next) => {
             });
         }
 
+        if (surname === undefined || surname === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (phoneNumber === undefined || phoneNumber === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (mail === undefined || mail === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (birthDate === undefined || birthDate === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (personalCode === undefined || personalCode === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (currentAboniment === undefined || currentAboniment === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (aboniments === undefined || aboniments === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (visitsLeft === undefined || visitsLeft === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
+        if (visits === undefined || visits === '') {
+            return res.status(422).json({
+                'code': 'REQUIRED_FIELD_MISSING',
+                'description': 'name is required',
+                'field': 'name'
+            });
+        }
+
         const temp = {
-            name: name
+            name: name,
+            surname: surname,
+            phoneNumber: phoneNumber,
+            mail: mail,
+            birthDate: birthDate,
+            personalCode: personalCode,
+            currentAboniment: currentAboniment,
+            aboniments: aboniments,
+            visitsLeft: visitsLeft,
+            visits: visits
         }
 
         let newCustomer = await Customer.create(temp);

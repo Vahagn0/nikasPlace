@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import User from './user';
-import { redirect, useNavigate } from 'react-router-dom';
+import {useNavigate } from 'react-router-dom';
 
 function Users() {
     const navigate = useNavigate()

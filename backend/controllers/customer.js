@@ -5,7 +5,7 @@ let router = express.Router();
 
 router.get('/', auth, customerService.getCustomer);
 
- router.post('/', customerService.createCustomer);
+router.post('/', customerService.createCustomer);
 
 // router.patch('/:id',);
 
