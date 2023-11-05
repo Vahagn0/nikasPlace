@@ -1,4 +1,4 @@
-const express = require('express');;
+const express = require('express');
 const Customer = require("../models/custumer")
 
 const getCustomer = async (req, res, next) => {
@@ -25,32 +25,40 @@ const getCustomer = async (req, res, next) => {
     }
 }
 
-// const getProductById = async (req, res, next) => {
-//     try {
-//         let product = await Product.findById(req.params.id);
-//         if (product) {
-//             return res.status(200).json({
-//                 'message': `product with id ${req.params.id} fetched successfully`,
-//                 'data': product
-//             });
-//         }
+const getCustomerByPersonalCode = async (req, res, next) => {
+    try {
+        let customer = await Customer.findOne({personalCode : req.params.personalCode}) 
+        if (customer) {
+            return res.status(200).json({
+                'message': `customer with code ${req.params.personalCode} fetched successfully`,
+                'data': customer
+            });
+        }
 
-//         return res.status(404).json({
-//             'code': 'BAD_REQUEST_ERROR',
-//             'description': 'No products found in the system'
-//         });
+        return res.status(404).json({
+            'code': 'BAD_REQUEST_ERROR',
+            'description': 'No customer found in the system'
+        });
 
-//     } catch (error) {
+    } catch (error) {
 
-//         return res.status(500).json({
-//             'code': 'SERVER_ERROR',
-//             'description': 'something went wrong, Please try again'
-//         });
-//     }
-// }
+        return res.status(500).json({
+            'code': 'SERVER_ERROR',
+            'description': 'something went wrong, Please try again'
+        });
+    }
+}
 
 const createCustomer = async (req, res, next) => {
     try {
+        const dateObj = new Date();
+        let day = ("0" + dateObj.getDate()).slice(-2);
+        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        let year = dateObj.getFullYear();
+        let hours = dateObj.getHours();
+        let minutes = dateObj.getMinutes();
+        let time = hours + ":" + minutes;
+
         const 
         {
             name,
@@ -60,7 +68,6 @@ const createCustomer = async (req, res, next) => {
             birthDate,
             personalCode,
             currentAboniment,
-            aboniments,
             visitsLeft,
             visits,
         } = req.body;
@@ -76,74 +83,68 @@ const createCustomer = async (req, res, next) => {
         if (surname === undefined || surname === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'surname is required',
+                'field': 'surname'
             });
         }
 
         if (phoneNumber === undefined || phoneNumber === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'phoneNumber is required',
+                'field': 'phoneNumber'
             });
         }
 
         if (mail === undefined || mail === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'mail is required',
+                'field': 'mail'
             });
         }
 
         if (birthDate === undefined || birthDate === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'birthDate is required',
+                'field': 'birthDate'
             });
         }
 
         if (personalCode === undefined || personalCode === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'personalCode is required',
+                'field': 'personalCode'
             });
         }
 
         if (currentAboniment === undefined || currentAboniment === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
-            });
-        }
-
-        if (aboniments === undefined || aboniments === '') {
-            return res.status(422).json({
-                'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'currentAboniment is required',
+                'field': 'currentAboniment'
             });
         }
 
         if (visitsLeft === undefined || visitsLeft === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'visitsLeft is required',
+                'field': 'visitsLeft'
             });
         }
 
         if (visits === undefined || visits === '') {
             return res.status(422).json({
                 'code': 'REQUIRED_FIELD_MISSING',
-                'description': 'name is required',
-                'field': 'name'
+                'description': 'visits is required',
+                'field': 'visits'
             });
         }
+
+        const aboniments = [{name: currentAboniment, day: day,month: month,year: year,time:time}]
 
         const temp = {
             name: name,
@@ -162,7 +163,7 @@ const createCustomer = async (req, res, next) => {
 
         if (newCustomer) {
             return res.status(201).json({
-                'message': 'product created successfully',
+                'message': 'customer created successfully',
                 'data': newCustomer
             });
         } else {
@@ -176,77 +177,146 @@ const createCustomer = async (req, res, next) => {
     }
 }
 
-// const updateProduct = async (req, res, next) => {
-//     try {
+const addVisit = async (req, res, next) => {
+    try {
+        const dateObj = new Date();
+        let day = ("0" + dateObj.getDate()).slice(-2);
+        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2);
+        let year = dateObj.getFullYear();
+        let hours = dateObj.getHours();
+        let minutes = dateObj.getMinutes();
+        let time = hours + ":" + minutes;
 
+        let customer = await Customer.findOne({personalCode : req.body.personalCode})
 
-//         const ProductId = req.params.id;
+        const updatedVisits = [{day:day,month:month,year:year,time:time},...customer.visits]
 
-//         const {name,price,stock} = req.body;
+        if(customer.visitsLeft > 0){
 
-//         if (name === undefined || name === '') {
-//             return res.status(422).json({
-//                 'code': 'REQUIRED_FIELD_MISSING',
-//                 'description': 'name is required',
-//                 'field': 'name'
-//             });
-//         }
+            let temp = {
+                visitsLeft: customer.visitsLeft - 1,
+                visits: updatedVisits
+            }
 
-//         if (price === undefined || price === '') {
-//             return res.status(422).json({
-//                 'code': 'REQUIRED_FIELD_MISSING',
-//                 'description': 'price is required',
-//                 'field': 'price'
-//             });
-//         }
-//         if (stock === undefined || stock === '') {
-//             return res.status(422).json({
-//                 'code': 'REQUIRED_FIELD_MISSING',
-//                 'description': 'stock is required',
-//                 'field': 'stock'
-//             });
-//         }
+            const updatedCustomer = await Customer.findOneAndUpdate({personalCode : req.body.personalCode}, temp, {
+                new: true
+            });
 
-//         if (price === undefined || price === '') {
-//             return res.status(422).json({
-//                 'code': 'REQUIRED_FIELD_MISSING',
-//                 'description': 'price is required',
-//                 'field': 'price'
-//             });
-//         }
-//         if (stock === undefined || stock === '') {
-//             return res.status(422).json({
-//                 'code': 'REQUIRED_FIELD_MISSING',
-//                 'description': 'stock is required',
-//                 'field': 'stock'
-//             });
-//         }
-//         const temp = {
-//             name: name,
-//             price: price,
-//             stock: stock
-//         }
+            if (updatedCustomer) {
+                return res.status(200).json({
+                    'message': 'product updated successfully',
+                    'data': updatedCustomer
+                });
+            } else {
+                throw new Error('something went worng');
+            }
+        }else{
+            return res.status(400).json({
+                'code': 'noVisit',
+                'description': 'something went wrong, Please try again'
+            });
+        } 
 
-//         let updateProduct = await Product.findByIdAndUpdate(ProductId, temp, {
-//             new: true
-//         });
+    } catch (error) {
 
-//         if (updateProduct) {
-//             return res.status(200).json({
-//                 'message': 'product updated successfully',
-//                 'data': updateProduct
-//             });
-//         } else {
-//             throw new Error('something went worng');
-//         }
-//     } catch (error) {
+        return res.status(500).json({
+            'code': 'SERVER_ERROR',
+            'description': 'something went wrong, Please try again'
+        });
+    }
+}
 
-//         return res.status(500).json({
-//             'code': 'SERVER_ERROR',
-//             'description': 'something went wrong, Please try again'
-//         });
-//     }
-// }
+const findByName = async (req,res,next) => {
+    try{
+        const {name,surname} = req.body
+        console.log("name",name,"surname",surname)
+        if(name && surname){
+            let customer = await Customer.find({name : name, surname: surname})
+            if (customer[0]) {
+                return res.status(200).json({
+                    'message': 'customer found',
+                    'data': customer
+                });
+            } else if(name){
+                let customer = await Customer.find({name : name})
+                if (customer[0]) {
+                    return res.status(200).json({
+                        'message': 'customer found',
+                        'data': customer
+                    });
+                }else if(surname){
+                    let customer = await Customer.find({surname : surname})
+                    if (customer[0]) {
+                        return res.status(200).json({
+                            'message': 'customer found',
+                            'data': customer
+                        });
+                    } else {
+                        throw new Error('something went worng');
+                    }
+                }
+            }
+        }else if(name){
+            let customer = await Customer.find({name : name})
+            if (customer[0]) {
+                return res.status(200).json({
+                    'message': 'customer found',
+                    'data': customer
+                });
+            } else {
+                throw new Error('something went worng');
+            }
+        }else if(surname){
+            let customer = await Customer.find({surname : surname})
+            if (customer[0]) {
+                return res.status(200).json({
+                    'message': 'customer found',
+                    'data': customer
+                });
+            } else {
+                throw new Error('something went worng');
+            }
+        }
+    }catch (error) {
+        return res.status(500).json({
+            'code': 'SERVER_ERROR',
+            'description': 'something went wrong, Please try again'
+        });
+    }
+}
+
+const getStatistics = async (req,res,next) => {
+    try{
+        const {day,month,year} = req.body
+
+        let customers = await Customer.find()
+        if(day && month && year){
+
+            const found =  customers.map((customer)=>{
+                const condition = day == customer.visits.day && month == customer.visits.month && year === customer.visits.year
+                if(condition){
+                    return customer
+                }
+            })
+
+            console.log(found,"foundddddd")
+
+            if ("something") {
+                return res.status(200).json({
+                    'message': 'customer found',
+                    'data': customer
+                });
+                } else {
+                    throw new Error('something went worng');
+                }
+            }
+        }catch (error) {
+        return res.status(500).json({
+            'code': 'SERVER_ERROR',
+            'description': 'something went wrong, Please try again'
+        });
+    }
+}
 
 // const deleteProduct = async (req, res, next) => {
 //     try {
@@ -273,8 +343,10 @@ const createCustomer = async (req, res, next) => {
 
 module.exports = {
     getCustomer: getCustomer,
-    // getProductById: getProductById,
-     createCustomer: createCustomer,
-    // updateProduct: updateProduct,
+    getCustomerByPersonalCode: getCustomerByPersonalCode,
+    createCustomer: createCustomer,
+    addVisit: addVisit,
+    findByName: findByName,
+    getStatistics: getStatistics
     // deleteProduct: deleteProduct
 }

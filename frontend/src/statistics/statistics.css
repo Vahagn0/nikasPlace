@@ -1,0 +1,58 @@
+.statisticsMain{
+    height: 100vh;
+    width: 100vw;
+    background-color: #2B959D;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-direction: column;
+}
+
+.statisticsMiddle{
+    height: 80%;
+    width: 95%;
+    background-color: white;
+    margin-bottom: 2%;
+}
+
+.dmyDiv{
+    height: 20%;
+    width: 99%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.dmyInput{
+    height: 25%;
+    width: 10%;
+    padding-left: 20px;
+    margin-left: 2%;
+    font-size: 25px;
+    border-radius: 10px;
+    border: solid #2B959D;
+}
+
+.dmyInput:focus{
+    border-color:  rgba(43, 149, 157,0.7);
+    outline: none;
+}
+
+.searchStats{
+    height: 25%;
+    width: 10%;
+    border: none;
+    border-radius: 10px;
+    margin-left: 2%;
+    background-color: white;
+    color: #2B959D;
+    font-size: 25px;
+    transition: 0.3s;
+}
+
+.searchStats:hover{
+color: white;
+background-color: rgba(43, 149, 157, 0.8) ;
+border-radius: 10px;
+border: solid white;
+}

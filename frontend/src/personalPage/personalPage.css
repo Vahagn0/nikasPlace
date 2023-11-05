@@ -1,0 +1,113 @@
+.personalData{
+    font-size: 2.7em;
+    color: #2B959D;
+    margin-top: 25px;
+    margin-left: 10px;
+}
+.personalDataLabel{
+    font-size: 2.2em;
+    color: #EF892E;
+    margin-top: 25px;
+    font-weight: bold;
+}
+
+.personalLeft{
+    height: 80%;
+    width: 50%;
+    display: flex;
+    margin-left: 8%;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 55px;
+}
+
+.personalAddvisit{
+    margin-top: 25px;
+    height: 10%;
+    width: 30%;
+    padding-left: 20px;
+    border-radius: 10px;
+    border: solid #EF892E;
+    color: #EF892E;
+    background-color: rgba(239, 137, 46,0.1);
+    font-size: 25px;
+    transition: 0.3s;
+}
+
+.personalAddvisit:hover{
+    color: white;
+    background-color: #EF892E;
+}
+
+.personalRight{
+    margin-top: 2%;
+    height: 80%;
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.personalBackButton{
+    margin-left: 20%;
+    height: 30%;
+    width: 20%;
+    border-radius: 10px;
+    border: solid #EF892E;
+    color: #EF892E;
+    background-color: rgba(239, 137, 46,0.1);
+    font-size: 25px;
+    transition: 0.3s;
+}
+
+.personalBackButton:hover{
+    color: white;
+    background-color: #EF892E;
+}
+
+
+.contentDiv{
+    margin-top: 10px;
+}
+
+.visits{
+    padding-top: 10px;
+    height: 100%;
+    width: 90%;
+    background-color: #2B959D;
+    border-radius: 15px;
+    overflow: auto;
+}
+
+.visit{
+    height: 100px;
+    width: 93%;
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border-radius: 5px;
+    display: flex;
+}
+
+.dateDiv{
+    height: 100%;
+    width: 60%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 10%;
+}
+
+.timeDiv{
+    height: 100%;
+    width: 40%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.dateTime{
+    font-size: 78%;
+    color: #2B959D;
+}

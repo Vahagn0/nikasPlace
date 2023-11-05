@@ -5,8 +5,14 @@ let router = express.Router();
 
 router.get('/', auth, customerService.getCustomer);
 
-router.post('/', customerService.createCustomer);
+router.post('/', auth,customerService.createCustomer);
 
-// router.patch('/:id',);
+router.get('/:personalCode', customerService.getCustomerByPersonalCode);
+
+router.patch("/addVisit",auth ,customerService.addVisit)
+
+router.post("/findByName",customerService.findByName)
+
+router.post("/getStatistics",customerService.getStatistics)
 
 module.exports = router;

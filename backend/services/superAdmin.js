@@ -5,8 +5,8 @@ const credentials = require('../configs/credentials/');
 const login = async(req, res, next) => 
 {
     try {
-        const { username, password } = req.body
-        console.log("🚀", username, password);
+        const { username, password , name} = req.body
+        console.log("🚀", username, password, name);
         if (credentials.username != username || credentials.password != password) {
             console.log("Wrong username or password");
             return apiResponse.notFoundResponse(res, 'Invalid username or password');

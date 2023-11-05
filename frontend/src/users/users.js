@@ -1,51 +1,56 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import User from './user';
-import {useNavigate } from 'react-router-dom';
+import FindByName from './findByName';
+import SideBar from '../sidebar/sideBar';
 
 function Users() {
-    const navigate = useNavigate()
+    
+    const [customers,setCustomers] = useState("")
+    const [noCustomer,setNoCustomer] = useState(false)
+    const [noFoundByName,setNoFoundByName] = useState(false)
+    
+    useEffect(()=>{
+        const token = localStorage.getItem("token")
 
-    const [value, setValue] = useState('');
-
-    function handleInputChange(event) {
-        const inputValue = event.target.value.replace(/[^0-9]/g, '').slice(0, 6);
-        setValue(inputValue);
-      }
-
+        fetch('http://localhost:4000/api/v1/customer/', {
+        headers: {Authorization: `Bearer ${token}`}
+        })
+        .then(response => response.json())
+        .then(data => {
+            if(data.message == "products fetched successfully"){
+                setCustomers(data.data)
+            }else if(data.status == 0){
+                console.log("cant get products")
+            }else{
+                console.log("data is empty")
+            }
+        })
+    },[])
 
   return (
     <div className='usersMain'>
-        <div className='sidebar'>
-            <div className='sidebarTop'>
-                <img src={"logo.png"} className='usersLogo' />
-                <input 
-                type="text" 
-                value={value} onChange={handleInputChange}
-                placeholder='6 digit'
-                className='userIdInput'
-                />
-                <button className='findButton'>Find</button>
-            </div>
-            <div className='sidebarBottom'>
-                <button className='newButton' onClick={()=>{
-                    navigate("/create")
-                }}>New</button>
-            </div>
-        </div>
+        <SideBar noCustomer={noCustomer} setNoCustomer={setNoCustomer}/>
         <div className='users'>
-            <span className='usersSpan'>Users</span>
+            <FindByName setCustomers={setCustomers} setNoFoundByName={setNoFoundByName}/>
             <div className='usersDiv'>
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
-                <User />
+                {noFoundByName &&
+                    <span className='noCustomer' >customers not found</span>
+                }
+                {customers &&
+                    customers.map((customer)=>{
+                        return <User key={customer._id} 
+                                     name={customer.name} 
+                                     surname={customer.surname}
+                                     visitsLeft={customer.visitsLeft}
+                                     sixDigit={customer.personalCode}
+                                     />
+                    })
+                }
             </div>
         </div>
     </div>
   )
 }
+
+
 export default Users

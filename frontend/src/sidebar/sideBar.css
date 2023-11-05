@@ -1,0 +1,97 @@
+.sidebar{
+    height: 100%;
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    box-shadow: 5px 0px  20px 0px lightgray;
+}
+
+.sidebarTop{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+}
+
+.sidebarBottom{
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.newButton{
+    margin-bottom: 50px;
+    height: 15%;
+    width: 35%;
+    border: none;
+    border-radius: 10px;
+    background-color: #2B959D;
+    color: white;
+    font-size: 25px;
+    transition: 0.3s;
+}
+
+.newButton:hover{
+    color: #2B959D;
+    background-color: rgba(43, 149, 157, 0.2);
+    border-radius: 10px;
+    border: solid #2B959D;
+}
+
+.sidebarOption{
+    height: 12%;
+    width: 100%;
+    border: none;
+    background-color: #2B959D;
+    color: white;
+    font-size: 25px;
+    transition: 0.3s;
+}
+
+.sidebarOption:hover{
+color: #2B959D;
+background-color: rgba(43, 149, 157, 0.2);
+border: solid rgba(43, 149, 157, 0.1);
+}
+
+.userIdInput{
+    margin-top: 10%;
+    height: 15%;
+    width: 65%;
+    padding-left: 20px;
+    font-size: 25px;
+    border-radius: 10px;
+    border: solid #EF892E;
+}
+
+.userIdInput:focus{
+    border-color:  #EF892E;
+    outline: none;
+}
+
+.findButton{
+    margin-top: 15px;
+    margin-bottom: 25px;
+    height: 10%;
+    width: 25%;
+    border: none;
+    border-radius: 10px;
+    background-color: #EF892E;
+    color: white;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.findButton:hover{
+    color: #EF892E;
+    background-color: rgba(239, 137, 46,0.1);
+    border-radius: 10px;
+    border: solid #EF892E;
+}

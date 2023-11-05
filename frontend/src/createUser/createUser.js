@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import {useNavigate } from 'react-router-dom';
+import SideBar from '../sidebar/sideBar';
 
 
 function CreateUser() {
@@ -10,6 +11,7 @@ function CreateUser() {
   const [wrong,setWrong] = useState(false)
   const [wrongInput,setWrongInput] = useState("")
   const [currentAboniment,setCureentAboniment] = useState("")
+  const [created,setCreated] = useState(false)
   const navigate = useNavigate()
 
   const user = useFormik({
@@ -34,7 +36,6 @@ function CreateUser() {
       birthDate: user.values.date,
       personalCode: user.values.sixDigit,
       currentAboniment: user.values.aboniment,
-      aboniments: [user.values.aboniment],
       visitsLeft: currentAboniment.stock,
       visits: []
     }
@@ -51,7 +52,13 @@ function CreateUser() {
         }
         })
         .then(response => response.json())
-        .then(json => console.log(json));
+        .then(json =>{
+           if(json.message == "customer created successfully"){
+              setCreated(true)
+           }else{
+            console.log("customer not created")
+           }
+        });
     }
   }
 
@@ -103,7 +110,7 @@ function CreateUser() {
     }else if(!date){
       setWrong(true)
       setWrongInput("date")
-    }else if(!sixDigit || sixDigit.length != 6){
+    }else if(!sixDigit || sixDigit.length != 4){
       setWrong(true)
       setWrongInput("6 digit")
     }else if(!aboniment){
@@ -116,10 +123,11 @@ function CreateUser() {
 
   return (
     <div className='createUserMain'>
+      <SideBar />
+      {!created && 
         <div className='createUserModel'>
           <div className='createUserHeader'>
             <div className='headerButton'>
-              <button className='backButton' onClick={()=> navigate(-1)}>Back</button>
             </div>
             <div className='headerLogo'>
               <img src={"logo.png"} className='createLogo' />
@@ -134,7 +142,7 @@ function CreateUser() {
                   <input type='date' className='date' name="date" onChange={user.handleChange}/>
               </div>
               <div className='right'>
-                <input type="text" placeholder='6 digit' className='input' name="sixDigit" onChange={user.handleChange}/>
+                <input type="text" placeholder='4 digit' className='input' name="sixDigit" onChange={user.handleChange}/>
                 <select className='aboniments' name="aboniment" onChange={user.handleChange}>
                   {
                     products.map((item)=>{
@@ -150,8 +158,17 @@ function CreateUser() {
             </div>
           </div>
         </div>
+        }
+        {created &&
+          <div className='modal'>
+            <span className='created'>User created successfully</span>
+            <button className='createdBtn' onClick={()=> navigate(-1)}>Back</button>
+          </div>
+        }
     </div>
   )
 }
+
+
 
 export default CreateUser
